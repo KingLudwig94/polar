@@ -23,10 +23,10 @@ class PolarOhrPpiSample {
 
   /// Create a [PolarOhrPpiSample] from json
   PolarOhrPpiSample.fromJson(Map<String, dynamic> json)
-      : ppi = json['ppi'],
+      : ppi = json['ppInMs'],
         errorEstimate = json['errorEstimate'],
         hr = json['hr'],
-        blockerBit = json['blockerBit'],
-        skinContactStatus = json['skinContactStatus'],
-        skinContactSupported = json['skinContactSupported'];
+        blockerBit = json['blockerBit'] == 1,
+        skinContactStatus = json['skinContactStatus'] == 1,
+        skinContactSupported = json['skinContactSupported'] == 1;
 }

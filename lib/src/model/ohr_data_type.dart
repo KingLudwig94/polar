@@ -15,7 +15,12 @@ extension OhrDataTypeExtension on OhrDataType {
   /// Create an [OhrDataType] from json
   static OhrDataType fromJson(dynamic json) {
     if (Platform.isIOS) {
-      return OhrDataType.values[json as int];
+      switch (json) {
+        case 4:
+          return OhrDataType.ppg3_ambient1;
+        default:
+          return OhrDataType.unknown;
+      }
     } else {
       // This is android
       return OhrDataType.values.byName((json as String).toLowerCase());

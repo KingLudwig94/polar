@@ -227,7 +227,7 @@ class Polar {
             ),
           );
           return;
-        case 'polarFtpFeatureReady':
+        case 'ftpFeatureReady':
           _ftpFeatureReadyStreamController.add(call.arguments);
           return;
         default:

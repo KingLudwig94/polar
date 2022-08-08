@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  static const identifier = '1C709B20';
+  static const identifier = 'B2178924';
 
   final polar = Polar();
   final logs = ['Service started'];
@@ -26,10 +26,15 @@ class _MyAppState extends State<MyApp> {
     polar.heartRateStream.listen((e) => log('Heart rate: ${e.data.hr}'));
     polar.batteryLevelStream.listen((e) => log('Battery: ${e.level}'));
     polar.streamingFeaturesReadyStream.listen((e) {
+      log(e.features.toString());
       if (e.features.contains(DeviceStreamingFeature.ecg)) {
         polar
             .startEcgStreaming(e.identifier)
             .listen((e) => log('ECG data: ${e.samples}'));
+      } else if (e.features.contains(DeviceStreamingFeature.ppi)) {
+        polar.startOhrPPIStreaming(identifier).listen((event) {
+          log('PPG: ${event.timeStamp} => ${event.samples.map((e) => '[${e.ppi}, ${e.hr}]').reduce((value, element) => value + element)}');
+        });
       }
     });
     polar.deviceConnectingStream.listen((_) => log('Device connecting'));
